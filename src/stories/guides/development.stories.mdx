@@ -1,0 +1,71 @@
+import { Meta } from '@storybook/addon-docs';
+import { getTitle, getGuidesNavigationMeta } from 'stories/utils';
+import { DemoReactApp } from 'components/demo/react-app';
+import { DemoModalTriggerWebComponent } from 'components/demo/modal-trigger-web-component';
+import { DemoModalTriggerWebComponentScoped } from 'components/demo/modal-trigger-web-component-scoped';
+import { DemoShowSuccessWebComponent } from 'components/demo/show-success-web-component';
+import { DemoShowSuccessWebComponentStyled } from 'components/demo/show-success-web-component-styled';
+import { StoryPageNavigation } from 'components/story-page-navigation';
+import { ShowSuccess } from 'components/demo/component-definitions/show-success';
+
+<Meta title={getTitle({ group: 'guides', story: 'development' })} />
+
+# Development
+The following guide illustrates how a web component can be created using assets defined within a simple React application.
+
+The following code block implements a dummy application that renders a series of buttons on a page.
+
+<DemoReactApp />
+
+<br/>
+
+Now, assume that `ShowSuccess` has been identified as a micro-frontend candidate and is projected to be utilized outside of its source application.
+We can define it as a web component, which is usable in any web application, regardless of the framework used to build it.
+We can simply extend the [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) class to define a new element class and tap into its `connectedCallback` method
+in order to attach the shadow DOM to the element. See [lifecycle callbacks](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks) for more information.
+Finally, we instantiate the element as a new custom element, which can be utilized in any HTML markup.
+
+<DemoShowSuccessWebComponent />
+
+<br/>
+
+In our React application, we use `ShowSuccess` as a React component, and as a web component, we utilize it as a framework agnostic `show-success` element. This is great, but the two do not like the same, and that is problematic!
+The reason for the styling discrepancy is that the shadow DOM enforces its encapsulation specification, not allowing for any state leaks into or beyond the shadow DOM from the rest of the page.
+
+So, how do we ensure our styling is captured by the web component? Here be dragons! 🐲
+
+As web developers, we typically rely on plethora of styling technologies. We write inline styling using the `style` tag, `CSS`/`SCSS`, and import third party libraries. Thus, we might have to approach our web component definition differently based on our styling infrastructure. For example, in order to bring our `CSS` stylesheets into the web component, we might pull in the relevant files as modules into our implementation file, define a `style` tag within the shadow DOM, and supply the styles as the `style` tag definition.
+
+In this guide, we are relying on [Material UI](https://mui.com/material-ui/getting-started/overview/) to provide our generic UI building blocks. Material UI manages styling with `CSS` and `Javascript`, so we must go beyond supplying stylesheet definitions into the `style` tag.
+
+Luckily, Material UI exposes the needful to define the styling context by virtue of [React Context](https://reactjs.org/docs/context.html). We will rely on its `StyledEngineProvider`. In addition, since Material UI uses [Emotion](https://emotion.sh/docs/introduction) under the hood, we will utilize its `CacheProvider`.
+
+<DemoShowSuccessWebComponentStyled />
+
+<br/>
+
+Success! Expected styles are now part of the web component.
+
+Next, let's define a web component for the `ModalTrigger`.
+
+<DemoModalTriggerWebComponent />
+
+Works like a charm! Wait... Does it? 🐲
+
+During your current browser session, if you clicked on the `OPEN MODAL` button in the first code block output at the top of the page where we defined our dummy React application, you caused Material UI to lazy load the relevant styles into the context of this page. However, if you refresh this webpage, and click on the `OPEN MODAL` in this section, you may note that the modal content is displayed at the bottom of the page. If you were to utilize the `modal-trigger` in a website that does not have Material UI defined, it would never work as implemented currently.
+
+Many libraries default to injecting modals and other similar UI blocks that function as portals or worm-hole elements into the application's root element or the document's body. This means that the portal element will be injected outside of its shadow DOM container, causing problems. More often than not, there will be issues with styles due to the lost scope. In addition web components that inject elements outside of their shadow DOM container violate the fundamental principle of the shadow DOM encapsulation. Keep this in mind when developing your own portal-like elements or when using third party libraries.
+
+Material UI - again - demonstrates its robustness by exposing an API to drive where the modal will be rendered. We could either change the underlying React component `ModalTrigger`'s implementation  and utilize `Modal`'s `container` parameter to specify the container where the modal should be rendered, or we could define an override in the web component definition. In this guide, we will do the later by tapping into Material UI's `ThemeProvider`.
+
+<DemoModalTriggerWebComponentScoped />
+
+Ok, now it *really* works!
+
+There are some gotchas when creating web components you should be aware of, and hopefully this guide helped you identify the two big ones related to the shadow DOM encapsulation.
+
+With the foundational knowledge about micro-frontend architecture, web components, the shadow DOM, and all of the great assets, which have potential to be captured as micro-frontends across Medidata web apps, we are definitely on our way! 🚀
+
+For comments, feedback, suggestions, or questions, please reach out to [Boris on Slack](https://mdsol.slack.com/team/UHJHAJ66M).
+
+<StoryPageNavigation {...getGuidesNavigationMeta('development')} />

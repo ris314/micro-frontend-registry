@@ -1,0 +1,19 @@
+import { Meta } from '@storybook/addon-docs';
+import { getTitle, getGuidesNavigationMeta } from 'stories/utils';
+import { StoryPageNavigation } from 'components/story-page-navigation';
+
+<Meta title={getTitle({ group: 'guides', story: 'service' })} />
+
+# Service
+Each micro-frontend's source code is defined and unit tested in its origin application.
+
+Micro-frontends should be served from the same source domain as its origin web application and be accessible via the URL as a [Javascript IIFE (Immediately Invoked Function Expression)](https://developer.mozilla.org/en-US/docs/Glossary/IIFE) containing the bundled and minified code, which exposes relevant assets as [Web Components](https://developer.mozilla.org/en-US/docs/Web/Web_Components).
+
+There should be at least three environments serving the micro-frontend:
+* Sandbox
+* UAT/Validation
+* Production
+
+Each of the environments above should conform to Infosec requirements around data availability, authentication & authorization, etc.
+
+<StoryPageNavigation {...getGuidesNavigationMeta('service')} />

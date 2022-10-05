@@ -1,0 +1,21 @@
+import { Meta } from '@storybook/addon-docs';
+import { getTitle, getGuidesNavigationMeta, getRegistrySandboxLink } from 'stories/utils';
+import { StoryPageNavigation } from 'components/story-page-navigation';
+
+<Meta title={getTitle({ group: 'guides', story: 'registry' })} />
+
+export const links = Object.freeze({
+  createStudyElement: getRegistrySandboxLink('createStudyElement'),
+  studyAdminDataElement: getRegistrySandboxLink('studyAdminDataElement')
+})
+
+# Registry
+The table below lists available [Web Components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) and their sources within the Medidata ecosystem.
+Clicking on the web component's hyperlink will take you to its story page, allowing you to learn more about it and to explore it using its sandbox source.
+
+| Web Component                                                        | Sandbox Source                         | UAT Source | Production Source |
+| -------------------------------------------------------------------- | -------------------------------------- | ---------- | ----------------- |
+| <a href={links.createStudyElement}>create-study-element</a>          | http://localhost:3000/lib/designer.js  | N/A        | N/A               |
+| <a href={links.studyAdminDataElement}>study-admin-data-element</a>   | http://localhost:3000/lib/designer.js  | N/A        | N/A               |
+
+<StoryPageNavigation {...getGuidesNavigationMeta('registry')} />

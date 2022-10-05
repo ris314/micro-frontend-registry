@@ -1,0 +1,18 @@
+import { Meta } from '@storybook/addon-docs';
+import { getTitle, getGuidesNavigationMeta } from 'stories/utils';
+import { StoryPageNavigation } from 'components/story-page-navigation';
+
+<Meta title={getTitle({ group: 'guides', story: 'promotion' })} />
+
+# Promotion
+Existing features and new features projected for development within a given web application may be identified as valuable and usable beyond the origin application.
+
+For example, given that a sign-up form has been developed for one web application and is utilized in production, a product owner from another project might be inclined to use that same sign-up form within their application. At this point the product owners and their respectful leads could sync up to determine if it is appropriate to promote that sign-up form into a micro-frontend.
+
+For new features, which are yet to be developed, the promotion might be somewhat different. It might be known ahead of time that the feature is desired in multiple applications across the organization. In this case one team should assume point on the development efforts.
+
+In case of both existing and new features, the product owner and the team that developed or will develop the feature for their application, should decide whether it is appropriate to promote it into a micro-frontend for broader usage. It does not make sense to promote something into a micro-frontend if it will not be used by others. On the other hand, it does not make sense to reinvent the wheel over and over again! Thus, the promotion decision should be based on conversations and strong support for usage and adoption by as many stakeholders as possible. 
+
+Once the UI functionality is available as a micro-frontend, its user base is expanded beyond the original users. Now, the users - aka clients - are teams relying on that micro-frontend as well as users, whom those teams support.
+
+<StoryPageNavigation {...getGuidesNavigationMeta('promotion')} />

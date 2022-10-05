@@ -1,0 +1,28 @@
+import { Meta } from '@storybook/addon-docs';
+import { getTitle, getGuidesNavigationMeta } from 'stories/utils';
+import { StoryPageNavigation } from 'components/story-page-navigation';
+
+<Meta title={getTitle({ group: 'guides', story: 'usage' })} />
+
+# Usage
+Using micro-frontends is simple! The gist of it is that the micro-frontend definition must be imported into the desired project and then simply used as an [HTML element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
+
+Assume that there is a web component tagged as `something-awesome` available at https://example.com/some-cool-stuff.
+Depending on the tech stack and the framework you are using, you might accomplish this in many ways, but the simplest way to import the web component into your project is via the `script` tag and then use it as `<something-awesome/>` within the project's `index.html`:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://example.com/some-cool-stuff"></script>
+    <title>One Demo Project</title>
+  </head>
+  <body>
+    <something-awesome/>
+  </body>
+</html>
+```
+
+<StoryPageNavigation {...getGuidesNavigationMeta('usage')} />

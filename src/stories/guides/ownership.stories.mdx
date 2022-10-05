@@ -1,0 +1,10 @@
+import { Meta } from '@storybook/addon-docs';
+import { getTitle, getGuidesNavigationMeta } from 'stories/utils';
+import { StoryPageNavigation } from 'components/story-page-navigation';
+
+<Meta title={getTitle({ group: 'guides', story: 'ownership' })} />
+
+# Ownership
+The team, who implemented a piece of functionality from their web application as a micro-frontend, owns it. They should think of it as a functionality, whose users are other teams in the organization. It is critical that the micro-frontend be stable and available at all times, and that any changes be planned in advance and are accomplished via deprecation first and then obsoletion.
+
+<StoryPageNavigation {...getGuidesNavigationMeta('ownership')} />

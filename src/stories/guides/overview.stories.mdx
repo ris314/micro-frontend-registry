@@ -1,0 +1,39 @@
+import { Meta } from '@storybook/addon-docs';
+import { getTitle, getGuidesNavigationMeta } from 'stories/utils';
+import { StoryPageNavigation } from 'components/story-page-navigation';
+
+<Meta title={getTitle({ group: 'guides', story: 'overview' })} />
+
+# Overview
+Micro-frontend architecture is a software design pattern in which web applications are decomposed into smaller chunks, whereby each chunk can be invoked together with other chunks or as a standalone micro application within another (macro) application.
+
+Our implementation strategy for micro-frontends is to rely on [Web Components](https://developer.mozilla.org/en-US/docs/Web/Web_Components). Specifically, we are targeting the [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate our reusable web application chunks.
+
+In order for this pattern to be successful across teams and products within the organization, we must establish and adhere to a set of guidelines and principles.  
+
+<br/>
+
+## Who decides when and which piece of UI functionality should be exposed beyond its origin application?
+See [Promotion](?path=/docs/micro-frontend-guides-promotion--page).
+<br/>
+
+## Who owns micro-frontends?
+See [Ownership](?path=/docs/micro-frontend-guides-ownership--page).
+<br/>
+
+## Where do micro-frontends reside?
+See [Service](?path=/docs/micro-frontend-guides-service--page).
+<br/>
+
+## How can I use micro-frontends in my application?
+See [Usage](?path=/docs/micro-frontend-guides-usage--page).
+<br/>
+
+## How do I create a web component?
+See [Development](?path=/docs/micro-frontend-guides-development--page).
+<br/>
+
+## How do I know which micro-frontends exist?
+See [Registry](?path=/docs/micro-frontend-guides-registry--page).
+
+<StoryPageNavigation {...getGuidesNavigationMeta('overview')} />
